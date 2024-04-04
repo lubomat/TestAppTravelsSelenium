@@ -13,19 +13,23 @@ public class HotelSearch {
     public void searchHotel() {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
         driver.get("http://kurs-selenium.pl/demo/");
         driver.manage().window().maximize();
+        // set City
         driver.findElement(By.xpath("//span[text()='Search by Hotel or City Name']")).click();
         driver.findElement(By.xpath("//*[@id=\"select2-drop\"]/div/input")).sendKeys("Dubai");
-
-//        WebElement search = driver.findElement(By.id("s2id_autogen9"));
-//        search.sendKeys("Dubai");
-
         driver.findElement(By.xpath("//span[@class='select2-match' and text()='Dubai']")).click();
+        // set data
+        driver.findElement(By.name("checkin")).sendKeys("14/09/2024");
+//        driver.findElement(By.xpath("//*[@id=\"dpd1\"]/div/input")).sendKeys("13/09/2024");
+        driver.findElement(By.name("checkout")).sendKeys("21/09/2024");
+//        driver.findElement(By.xpath("//*[@id=\"dpd2\"]/div/input")).sendKeys("20/09/2024");
 
-//        WebElement checkIn = driver.findElement(By.name("checkin"));
-//        checkIn.sendKeys("13/09/2024");
+
+
+
+
 
     }
 }
