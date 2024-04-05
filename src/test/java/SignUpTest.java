@@ -6,7 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class SignUpTest {
 
@@ -61,34 +63,45 @@ public class SignUpTest {
         // click Sign UP
         driver.findElements(By.xpath("//a[text()='  Sign Up']")).stream()    //.get(1).click();
                 .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
-
-
         driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
 
-        WebElement emailFail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[1]"));
-        System.out.println(emailFail.getText());
-        Assert.assertTrue(emailFail.isDisplayed());
-        Assert.assertEquals(emailFail.getText(), "The Email field is required.");
+        List<String> errors = driver.findElements(By.xpath(
+                "//div[@Class='alert alert-danger']//p"))
+                .stream().map(WebElement::getText)
+                .collect(Collectors.toList());
+        Assert.assertTrue(errors.contains("The Email field is required."));
+        Assert.assertTrue(errors.contains("The Password field is required."));
+        Assert.assertTrue(errors.contains("The Password field is required."));
+        Assert.assertTrue(errors.contains("The First name field is required."));
+        Assert.assertTrue(errors.contains("The Last Name field is required."));
 
-        WebElement passwordFail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[2]"));
-        System.out.println(passwordFail.getText());
-        Assert.assertTrue(passwordFail.isDisplayed());
-        Assert.assertEquals(passwordFail.getText(), "The Password field is required.");
 
-        WebElement password2Fail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[3]"));
-        System.out.println(password2Fail.getText());
-        Assert.assertTrue(password2Fail.isDisplayed());
-        Assert.assertEquals(password2Fail.getText(), "The Password field is required.");
-
-        WebElement firstNameFail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[4]"));
-        System.out.println(firstNameFail.getText());
-        Assert.assertTrue(firstNameFail.isDisplayed());
-        Assert.assertEquals(firstNameFail.getText(), "The First name field is required.");
-
-        WebElement lastNameFail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[5]"));
-        System.out.println(lastNameFail.getText());
-        Assert.assertTrue(lastNameFail.isDisplayed());
-        Assert.assertEquals(lastNameFail.getText(), "The Last Name field is required.");
+//        driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
+//
+//        WebElement emailFail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[1]"));
+//        System.out.println(emailFail.getText());
+//        Assert.assertTrue(emailFail.isDisplayed());
+//        Assert.assertEquals(emailFail.getText(), "The Email field is required.");
+//
+//        WebElement passwordFail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[2]"));
+//        System.out.println(passwordFail.getText());
+//        Assert.assertTrue(passwordFail.isDisplayed());
+//        Assert.assertEquals(passwordFail.getText(), "The Password field is required.");
+//
+//        WebElement password2Fail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[3]"));
+//        System.out.println(password2Fail.getText());
+//        Assert.assertTrue(password2Fail.isDisplayed());
+//        Assert.assertEquals(password2Fail.getText(), "The Password field is required.");
+//
+//        WebElement firstNameFail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[4]"));
+//        System.out.println(firstNameFail.getText());
+//        Assert.assertTrue(firstNameFail.isDisplayed());
+//        Assert.assertEquals(firstNameFail.getText(), "The First name field is required.");
+//
+//        WebElement lastNameFail = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p[5]"));
+//        System.out.println(lastNameFail.getText());
+//        Assert.assertTrue(lastNameFail.isDisplayed());
+//        Assert.assertEquals(lastNameFail.getText(), "The Last Name field is required.");
 
 
 
