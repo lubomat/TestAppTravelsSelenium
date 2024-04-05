@@ -8,10 +8,10 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class SignUpWithBlankFormTest {
+public class SignUpWithEmptyFormTest {
 
     @Test
-    public void signUpWithBlankForm() {
+    public void signUpWithEmptyForm() {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
