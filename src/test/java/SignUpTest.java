@@ -118,6 +118,8 @@ public class SignUpTest {
         driver.get("http://kurs-selenium.pl/demo/");
         driver.manage().window().maximize();
 
+        int randomNumber = (int) (Math.random()*1000);
+
 
         // click MY ACCOUNT
         driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
@@ -129,7 +131,7 @@ public class SignUpTest {
         driver.findElement(By.name("firstname")).sendKeys("Andrzej");
         driver.findElement(By.name("lastname")).sendKeys("Testowany");
         driver.findElement(By.name("phone")).sendKeys("111222333");
-        driver.findElement(By.name("email")).sendKeys("zlyemail.pl");
+        driver.findElement(By.name("email")).sendKeys("niepoprawny"+randomNumber+".pl");
         driver.findElement(By.name("password")).sendKeys("haslotestowe123");
         driver.findElement(By.name("confirmpassword")).sendKeys("haslotestowe123");
 //        driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[9]/button")).click();
