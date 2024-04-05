@@ -3,6 +3,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -23,11 +24,15 @@ public class HotelSearch {
         driver.findElement(By.xpath("//*[@id=\"select2-drop\"]/div/input")).sendKeys("Dubai");
         driver.findElement(By.xpath("//span[@class='select2-match' and text()='Dubai']")).click();
         // set checkin
-        driver.findElement(By.name("checkin")).sendKeys("14/09/2024");
+        driver.findElement(By.name("checkin")).sendKeys("14/09/2025");
 //        driver.findElement(By.xpath("//*[@id=\"dpd1\"]/div/input")).sendKeys("13/09/2024");
         // set checkout
-        driver.findElement(By.name("checkout")).sendKeys("21/09/2024");
-//        driver.findElement(By.xpath("//*[@id=\"dpd2\"]/div/input")).sendKeys("20/09/2024");
+        driver.findElement(By.name("checkout")).click();
+        driver.findElements(By.xpath("//td[@class='day ' and text()='30']"))
+                        .stream()
+                        .filter(WebElement::isDisplayed)
+                        .findFirst()
+                        .ifPresent(WebElement::click);
         driver.findElement(By.id("travellersInput")).click();
         // add adult
         driver.findElement(By.id("adultPlusBtn")).click();
@@ -39,8 +44,21 @@ public class HotelSearch {
 
         List<String> hotelNames = driver.findElements(By.xpath(
                 "//h4[contains(@class,'list_title')]//b")).stream()
-                                    .map(el -> el.getText()).collect(Collectors.toList());
+                                    .map(el -> el.getAttribute("textContent"))
+                                    .collect(Collectors.toList());
+
+        hotelNames.forEach(System.out::println); // kazdy z tych elementow bedzie przekazywany do println
+
+
         System.out.println(hotelNames.size());
+        hotelNames.forEach(el -> System.out.println(el));
+
+        Assert.assertEquals("Jumeirah Beach Hotel", hotelNames.get(0));
+        Assert.assertEquals("Oasis Beach Tower", hotelNames.get(1));
+        Assert.assertEquals("Rose Rayhaan Rotana", hotelNames.get(2));
+        Assert.assertEquals("Hyatt Regency Perth", hotelNames.get(3));
+
+        driver.close();
 
 
 
