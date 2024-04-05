@@ -4,21 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class HotelSearch {
+public class HotelSearchTest extends BaseTest {
+
 
     @Test
-    public void searchHotel() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
-        driver.get("http://kurs-selenium.pl/demo/");
-        driver.manage().window().maximize();
+    public void searchHotelTest() {
         // set City
         driver.findElement(By.xpath("//span[text()='Search by Hotel or City Name']")).click();
         driver.findElement(By.xpath("//*[@id=\"select2-drop\"]/div/input")).sendKeys("Dubai");
@@ -58,17 +56,11 @@ public class HotelSearch {
         Assert.assertEquals(hotelNames.get(2),"Rose Rayhaan Rotana");
         Assert.assertEquals(hotelNames.get(3),"Hyatt Regency Perth");
 
-        driver.close();
 
     }
 
     @Test
-    public void searchHotelWithoutCity() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
-        driver.get("http://kurs-selenium.pl/demo/");
-        driver.manage().window().maximize();
+    public void searchHotelWithoutCityTest() {
 
         // set checkin
         driver.findElement(By.name("checkin")).sendKeys("14/09/2025");
@@ -96,7 +88,6 @@ public class HotelSearch {
         Assert.assertTrue(noResult.isDisplayed());
         Assert.assertEquals(noResult.getText(),"No Results Found");
 
-        driver.close();
 
     }
 }

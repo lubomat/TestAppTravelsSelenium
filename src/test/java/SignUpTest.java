@@ -4,21 +4,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-public class SignUpTest {
+public class SignUpTest extends BaseTest {
 
     @Test
-    public void signUp() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
-        driver.get("http://kurs-selenium.pl/demo/");
-        driver.manage().window().maximize();
+    public void signUpTest() {
 
         String lastName = "Testowany";
         int randomNumber = (int) (Math.random()*1000);
@@ -45,18 +42,13 @@ public class SignUpTest {
         System.out.println(heading.getText());
         System.out.println("W tym tescie został użyty adres email: " + "Testowalny"+randomNumber+"@test.pl");
 
-        driver.close();
+
 
     }
 
 
     @Test
-    public void signUpWithEmptyForm() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
-        driver.get("http://kurs-selenium.pl/demo/");
-        driver.manage().window().maximize();
+    public void signUpWithEmptyFormTest() {
 
         driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
                 .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
@@ -105,21 +97,14 @@ public class SignUpTest {
 
 
 
-        driver.close();
 
     }
 
 
     @Test
-    public void signUpWithBadEmail() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
-        driver.get("http://kurs-selenium.pl/demo/");
-        driver.manage().window().maximize();
+    public void signUpWithBadEmailTest() {
 
         int randomNumber = (int) (Math.random()*1000);
-
 
         // click MY ACCOUNT
         driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
@@ -143,7 +128,6 @@ public class SignUpTest {
         Assert.assertEquals(invalidEmailInfo.getText(), "The Email field must contain a valid email address.");
 
 
-        driver.close();
 
     }
 }
