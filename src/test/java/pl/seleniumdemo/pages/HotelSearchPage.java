@@ -1,14 +1,9 @@
 package pl.seleniumdemo.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Test;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class HotelSearchPage {
 
@@ -40,7 +35,7 @@ public class HotelSearchPage {
     private WebElement searchButton;
 
     public HotelSearchPage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     public void setCity(String cityName) {
@@ -54,14 +49,22 @@ public class HotelSearchPage {
         checkoutInput.sendKeys(checkout);
     }
 
-    public void setTravellers() {
+    public void setTravelers(int adultsToAdd, int childToAdd) {
         travellersInput.click();
-        adultPlusBtb.click();
-        childPlusBtn.click();
+        addTraveler(adultPlusBtb, adultsToAdd);
+        addTraveler(childPlusBtn, childToAdd);
+
     }
 
-    public void performSearch() {
-        searchButton.click();
+    private void addTraveler(WebElement travelerBtn, int numberOfTravelers) {
+        for (int i = 0; i < numberOfTravelers; i++) {
+            travelerBtn.click();
+        }
     }
 
-}
+        public void performSearch() {
+            searchButton.click();
+        }
+
+    }
+
