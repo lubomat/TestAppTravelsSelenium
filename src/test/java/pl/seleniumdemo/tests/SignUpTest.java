@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pl.seleniumdemo.pages.HotelSearchPage;
+import pl.seleniumdemo.pages.LoggedUserPage;
 import pl.seleniumdemo.pages.SignUpPage;
 import pl.seleniumdemo.tests.BaseTest;
 
@@ -32,6 +33,16 @@ public class SignUpTest extends BaseTest {
         signUpPage.signUp();
 
 
+        LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
+
+
+        Assert.assertTrue(loggedUserPage.getHeadingText().contains(lastName));
+        Assert.assertEquals(loggedUserPage.getHeadingText(),"Hi, Andrzej Testowany");
+
+        System.out.println(loggedUserPage.getHeadingText());
+        System.out.println("W tym tescie został użyty adres email: " + "Testowalny"+randomNumber+"@test.pl");
+
+
         // click MY ACCOUNT
 //        driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
 //                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
@@ -47,14 +58,6 @@ public class SignUpTest extends BaseTest {
 //        driver.findElement(By.name("confirmpassword")).sendKeys("haslotestowe123");
 //        driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[9]/button")).click();
 //        driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
-
-        WebElement heading = driver.findElement(By.xpath("//*[@id=\"body-section\"]/div[1]/div/div/div[1]/h3"));
-        Assert.assertTrue(heading.getText().contains(lastName));
-        Assert.assertEquals(heading.getText(),"Hi, Andrzej Testowany");
-
-        System.out.println(heading.getText());
-        System.out.println("W tym tescie został użyty adres email: " + "Testowalny"+randomNumber+"@test.pl");
-
 
 
     }
