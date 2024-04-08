@@ -2,7 +2,6 @@ package pl.seleniumdemo.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pl.seleniumdemo.model.User;
 import pl.seleniumdemo.pages.HotelSearchPage;
 import pl.seleniumdemo.pages.LoggedUserPage;
 import pl.seleniumdemo.pages.SignUpPage;
