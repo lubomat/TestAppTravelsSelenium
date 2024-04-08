@@ -28,9 +28,7 @@ public class SignUpTest extends BaseTest {
         signUpPage.setConfirmPassword("haslotestowe123");
         signUpPage.signUp();
 
-
         LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
-
 
         Assert.assertTrue(loggedUserPage.getHeadingText().contains(lastName));
         Assert.assertEquals(loggedUserPage.getHeadingText(),"Hi, Andrzej Testowany");
@@ -38,6 +36,32 @@ public class SignUpTest extends BaseTest {
         System.out.println(loggedUserPage.getHeadingText());
         System.out.println("W tym tescie został użyty adres email: " + "Testowalny"+randomNumber+"@test.pl");
 
+    }
+
+    @Test
+    public void signUpTest2() {
+
+        int randomNumber = (int) (Math.random()*1000);
+        String lastName = "Testowany";
+        String email = "Testowalny"+randomNumber+"@test.pl";
+
+        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
+        hotelSearchPage.openSignUpForm();
+
+        SignUpPage signUpPage = new SignUpPage(driver);
+        signUpPage.fillSignUpForm("Andrzej",lastName,"123123123",
+                email,"haslotestowe123");
+        
+
+        LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
+
+        Assert.assertTrue(loggedUserPage.getHeadingText().contains(lastName));
+        Assert.assertEquals(loggedUserPage.getHeadingText(),"Hi, Andrzej Testowany");
+
+        System.out.println(loggedUserPage.getHeadingText());
+        System.out.println("W tym tescie został użyty adres email: " + "Testowalny"+randomNumber+"@test.pl");
+
+    }
 
         // click MY ACCOUNT
 //        driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
@@ -54,9 +78,6 @@ public class SignUpTest extends BaseTest {
 //        driver.findElement(By.name("confirmpassword")).sendKeys("haslotestowe123");
 //        driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[9]/button")).click();
 //        driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
-
-
-    }
 
 
     @Test
