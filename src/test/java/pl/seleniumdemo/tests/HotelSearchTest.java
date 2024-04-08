@@ -15,8 +15,8 @@ public class HotelSearchTest extends BaseTest {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.setCity("Dubai");
-        hotelSearchPage.setDates("27/04/2025","30/04/2025");
-        hotelSearchPage.setTravelers(1,2);
+        hotelSearchPage.setDates("27/04/2025", "30/04/2025");
+        hotelSearchPage.setTravelers(1, 2);
         hotelSearchPage.performSearch();
 
         ResultsPage resultsPage = new ResultsPage(driver);
@@ -24,10 +24,10 @@ public class HotelSearchTest extends BaseTest {
         List<String> hotelNames = resultsPage.getHotelNames();
 
 
-        Assert.assertEquals(hotelNames.get(0),"Jumeirah Beach Hotel");
-        Assert.assertEquals( hotelNames.get(1),"Oasis Beach Tower");
-        Assert.assertEquals(hotelNames.get(2),"Rose Rayhaan Rotana");
-        Assert.assertEquals(hotelNames.get(3),"Hyatt Regency Perth");
+        Assert.assertEquals(hotelNames.get(0), "Jumeirah Beach Hotel");
+        Assert.assertEquals(hotelNames.get(1), "Oasis Beach Tower");
+        Assert.assertEquals(hotelNames.get(2), "Rose Rayhaan Rotana");
+        Assert.assertEquals(hotelNames.get(3), "Hyatt Regency Perth");
 
 
         // set City
@@ -67,7 +67,6 @@ public class HotelSearchTest extends BaseTest {
 //        hotelNames.forEach(el -> System.out.println(el));    // tu tak samo jak wyżej
 
 
-
     }
 
     @Test
@@ -75,13 +74,13 @@ public class HotelSearchTest extends BaseTest {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.setDates("14/09/2025", "22/09/2025");
-        hotelSearchPage.setTravelers(0,1);
+        hotelSearchPage.setTravelers(0, 1);
         hotelSearchPage.performSearch();
 
         ResultsPage resultsPage = new ResultsPage(driver);
 
         Assert.assertTrue(resultsPage.resultHeading.isDisplayed());
-        Assert.assertEquals(resultsPage.getHeadingText(),"No Results Found");
+        Assert.assertEquals(resultsPage.getHeadingText(), "No Results Found");
 
         // set checkin
 //        driver.findElement(By.name("checkin")).sendKeys("14/09/2025");
@@ -102,8 +101,6 @@ public class HotelSearchTest extends BaseTest {
 //        driver.findElement(By.id("childPlusBtn")).click();
         // click search
 //        driver.findElement(By.xpath("//button[text()=' Search']")).click();
-
-
 
 
     }

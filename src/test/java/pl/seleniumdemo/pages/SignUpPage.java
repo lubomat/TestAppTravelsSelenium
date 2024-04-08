@@ -77,24 +77,25 @@ public class SignUpPage {
     }
 
 
-    public void fillSignUpForm(String firstName, String lastName, String phone, String email, String password) {
-        firstNameInput.sendKeys(firstName);
-        lastNameInput.sendKeys(lastName);
-        phoneInput.sendKeys(phone);
-        emailInput.sendKeys(email);
-        passwordInput.sendKeys(password);
-        confirmPasswordInput.sendKeys(password);
-        signUpButton.click();
-    }
+//    public void fillSignUpForm(String firstName, String lastName, String phone, String email, String password) {
+//        firstNameInput.sendKeys(firstName);
+//        lastNameInput.sendKeys(lastName);
+//        phoneInput.sendKeys(phone);
+//        emailInput.sendKeys(email);
+//        passwordInput.sendKeys(password);
+//        confirmPasswordInput.sendKeys(password);
+//        signUpButton.click();
+//    }
+//
+//    public void fillSignUpForm(User user) {
+//        firstNameInput.sendKeys(user.getFirstName());
+//        lastNameInput.sendKeys(user.getLastName());
+//        phoneInput.sendKeys(user.getPhone());
+//        emailInput.sendKeys(user.getEmail());
+//        passwordInput.sendKeys(user.getPassword());
+//        confirmPasswordInput.sendKeys(user.getPassword());
+//        signUpButton.click();
+//    }
 
-    public void fillSignUpForm(User user) {
-        firstNameInput.sendKeys(user.getFirstName());
-        lastNameInput.sendKeys(user.getLastName());
-        phoneInput.sendKeys(user.getPhone());
-        emailInput.sendKeys(user.getEmail());
-        passwordInput.sendKeys(user.getPassword());
-        confirmPasswordInput.sendKeys(user.getPassword());
-        signUpButton.click();
-    }
 
 }

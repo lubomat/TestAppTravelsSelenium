@@ -74,9 +74,9 @@ public class HotelSearchPage {
         }
     }
 
-        public void performSearch() {
-            searchButton.click();
-        }
+    public void performSearch() {
+        searchButton.click();
+    }
 
 
     public void openSignUpForm() {

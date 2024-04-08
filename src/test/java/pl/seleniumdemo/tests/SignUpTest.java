@@ -15,7 +15,7 @@ public class SignUpTest extends BaseTest {
     public void signUpTest() {
 
         String lastName = "Testowany";
-        int randomNumber = (int) (Math.random()*1000);
+        int randomNumber = (int) (Math.random() * 1000);
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.openSignUpForm();
@@ -24,7 +24,7 @@ public class SignUpTest extends BaseTest {
         signUpPage.setFirstName("Andrzej");
         signUpPage.setLastName(lastName);
         signUpPage.setPhone("123123123");
-        signUpPage.setEmail("Testowalny"+randomNumber+"@test.pl");
+        signUpPage.setEmail("Testowalny" + randomNumber + "@test.pl");
         signUpPage.setPassword("haslotestowe123");
         signUpPage.setConfirmPassword("haslotestowe123");
         signUpPage.signUp();
@@ -32,52 +32,49 @@ public class SignUpTest extends BaseTest {
         LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
 
         Assert.assertTrue(loggedUserPage.getHeadingText().contains(lastName));
-        Assert.assertEquals(loggedUserPage.getHeadingText(),"Hi, Andrzej Testowany");
+        Assert.assertEquals(loggedUserPage.getHeadingText(), "Hi, Andrzej Testowany");
 
         System.out.println(loggedUserPage.getHeadingText());
-        System.out.println("W tym tescie został użyty adres email: " + "Testowalny"+randomNumber+"@test.pl");
+        System.out.println("W tym tescie został użyty adres email: " + "Testowalny" + randomNumber + "@test.pl");
 
     }
 
     @Test
     public void signUpTest2() {
 
-        int randomNumber = (int) (Math.random()*1000);
+        int randomNumber = (int) (Math.random() * 1000);
 //        String lastName = "Testowany";
-        String email = "Testowalny"+randomNumber+"@test.pl";
-
-        User user = new User();
-        user.setFirstName("Andrzej");
-        user.setLastName("Testowany");
-        user.setPhone("123123123");
-        user.setEmail(email);
-        user.setPassword("haslotestowe123");
+        String email = "Testowalny" + randomNumber + "@test.pl";
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.openSignUpForm();
 
         SignUpPage signUpPage = new SignUpPage(driver);
-//        signUpPage.fillSignUpForm("Andrzej",lastName,"123123123",email,"haslotestowe123");
-        signUpPage.fillSignUpForm(user);
+        signUpPage.setFirstName("Marek");
+        signUpPage.setLastName("Testowalny");
+        signUpPage.setPhone("321321321");
+        signUpPage.setEmail(email);
+        signUpPage.setPassword("testowehaslo321");
+        signUpPage.setConfirmPassword("testowehaslo321");
 
 
         LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
 
-        Assert.assertTrue(loggedUserPage.getHeadingText().contains(user.getLastName()));
-        Assert.assertEquals(loggedUserPage.getHeadingText(),"Hi, Andrzej Testowany");
+        Assert.assertTrue(loggedUserPage.getHeadingText().contains("Testowalny"));
+        Assert.assertEquals(loggedUserPage.getHeadingText(), "Hi, Andrzej Testowany");
 
         System.out.println(loggedUserPage.getHeadingText());
-        System.out.println("W tym tescie został użyty adres email: " + "Testowalny"+randomNumber+"@test.pl");
+        System.out.println("W tym tescie został użyty adres email: " + "Testowalny" + randomNumber + "@test.pl");
 
     }
 
-        // click MY ACCOUNT
+    // click MY ACCOUNT
 //        driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
 //                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
-        // click Sign UP
+    // click Sign UP
 //        driver.findElements(By.xpath("//a[text()='  Sign Up']")).stream()    //.get(1).click();
 //                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
-        // entering informations
+    // entering informations
 //        driver.findElement(By.name("firstname")).sendKeys("Andrzej");
 //        driver.findElement(By.name("lastname")).sendKeys("Testowany");
 //        driver.findElement(By.name("phone")).sendKeys("111222333");
@@ -131,8 +128,6 @@ public class SignUpTest extends BaseTest {
 //        System.out.println(lastNameFail.getText());
 //        Assert.assertTrue(lastNameFail.isDisplayed());
 //        Assert.assertEquals(lastNameFail.getText(), "The Last Name field is required.");
-
-
 
 
     }
