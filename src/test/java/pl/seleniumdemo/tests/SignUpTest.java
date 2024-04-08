@@ -1,16 +1,12 @@
 package pl.seleniumdemo.tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pl.seleniumdemo.pages.HotelSearchPage;
 import pl.seleniumdemo.pages.LoggedUserPage;
 import pl.seleniumdemo.pages.SignUpPage;
-import pl.seleniumdemo.tests.BaseTest;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SignUpTest extends BaseTest {
 
@@ -66,17 +62,13 @@ public class SignUpTest extends BaseTest {
     @Test
     public void signUpWithEmptyFormTest() {
 
-        driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
-                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
-        // click Sign UP
-        driver.findElements(By.xpath("//a[text()='  Sign Up']")).stream()    //.get(1).click();
-                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
-        driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
+        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
+        hotelSearchPage.openSignUpForm();
 
-        List<String> errors = driver.findElements(By.xpath(
-                "//div[@Class='alert alert-danger']//p"))
-                .stream().map(WebElement::getText)
-                .collect(Collectors.toList());
+        SignUpPage signUpPage = new SignUpPage(driver);
+        signUpPage.signUp();
+
+        List<String> errors = signUpPage.getErrors();
         Assert.assertTrue(errors.contains("The Email field is required."));
         Assert.assertTrue(errors.contains("The Password field is required."));
         Assert.assertTrue(errors.contains("The Password field is required."));
@@ -118,31 +110,23 @@ public class SignUpTest extends BaseTest {
 
 
     @Test
-    public void signUpWithBadEmailTest() {
+    public void signUpInvalidEmailTest() {
 
-        int randomNumber = (int) (Math.random()*1000);
 
-        // click MY ACCOUNT
-        driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
-                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
-        // click Sign UP
-        driver.findElements(By.xpath("//a[text()='  Sign Up']")).stream()    //.get(1).click();
-                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
-        // entering informations
-        driver.findElement(By.name("firstname")).sendKeys("Andrzej");
-        driver.findElement(By.name("lastname")).sendKeys("Testowany");
-        driver.findElement(By.name("phone")).sendKeys("111222333");
-        driver.findElement(By.name("email")).sendKeys("niepoprawny"+randomNumber+".pl");
-        driver.findElement(By.name("password")).sendKeys("haslotestowe123");
-        driver.findElement(By.name("confirmpassword")).sendKeys("haslotestowe123");
-//        driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[9]/button")).click();
-        driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
+        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
+        hotelSearchPage.openSignUpForm();
 
-        WebElement invalidEmailInfo = driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[2]/div/p"));
-        System.out.println(invalidEmailInfo.getText());
-        Assert.assertTrue(invalidEmailInfo.isDisplayed());
-        Assert.assertEquals(invalidEmailInfo.getText(), "The Email field must contain a valid email address.");
+        SignUpPage signUpPage = new SignUpPage(driver);
+        signUpPage.setFirstName("Andrzej");
+        signUpPage.setLastName("Testowany");
+        signUpPage.setPhone("123123123");
+        signUpPage.setEmail("niepoprawnyemail.pl");
+        signUpPage.setPassword("haslotestowe123");
+        signUpPage.setConfirmPassword("haslotestowe123");
+        signUpPage.signUp();
 
+        Assert.assertTrue(signUpPage.getErrors().contains(
+                "The Email field must contain a valid email address."));
 
 
     }
