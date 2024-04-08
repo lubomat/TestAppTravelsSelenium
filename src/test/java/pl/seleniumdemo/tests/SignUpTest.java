@@ -2,6 +2,7 @@ package pl.seleniumdemo.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pl.seleniumdemo.model.User;
 import pl.seleniumdemo.pages.HotelSearchPage;
 import pl.seleniumdemo.pages.LoggedUserPage;
 import pl.seleniumdemo.pages.SignUpPage;
@@ -42,20 +43,27 @@ public class SignUpTest extends BaseTest {
     public void signUpTest2() {
 
         int randomNumber = (int) (Math.random()*1000);
-        String lastName = "Testowany";
+//        String lastName = "Testowany";
         String email = "Testowalny"+randomNumber+"@test.pl";
+
+        User user = new User();
+        user.setFirstName("Andrzej");
+        user.setLastName("Testowany");
+        user.setPhone("123123123");
+        user.setEmail(email);
+        user.setPassword("haslotestowe123");
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.openSignUpForm();
 
         SignUpPage signUpPage = new SignUpPage(driver);
-        signUpPage.fillSignUpForm("Andrzej",lastName,"123123123",
-                email,"haslotestowe123");
-        
+//        signUpPage.fillSignUpForm("Andrzej",lastName,"123123123",email,"haslotestowe123");
+        signUpPage.fillSignUpForm(user);
+
 
         LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
 
-        Assert.assertTrue(loggedUserPage.getHeadingText().contains(lastName));
+        Assert.assertTrue(loggedUserPage.getHeadingText().contains(user.getLastName()));
         Assert.assertEquals(loggedUserPage.getHeadingText(),"Hi, Andrzej Testowany");
 
         System.out.println(loggedUserPage.getHeadingText());
