@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pl.seleniumdemo.pages.HotelSearchPage;
+import pl.seleniumdemo.pages.SignUpPage;
 import pl.seleniumdemo.tests.BaseTest;
 
 import java.util.List;
@@ -16,21 +18,35 @@ public class SignUpTest extends BaseTest {
 
         String lastName = "Testowany";
         int randomNumber = (int) (Math.random()*1000);
+
+        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
+        hotelSearchPage.openSignUpForm();
+
+        SignUpPage signUpPage = new SignUpPage(driver);
+        signUpPage.setFirstName("Andrzej");
+        signUpPage.setLastName(lastName);
+        signUpPage.setPhone("123123123");
+        signUpPage.setEmail("Testowalny"+randomNumber+"@test.pl");
+        signUpPage.setPassword("haslotestowe123");
+        signUpPage.setConfirmPassword("haslotestowe123");
+        signUpPage.signUp();
+
+
         // click MY ACCOUNT
-        driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
-                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
+//        driver.findElements(By.xpath("//li[@id='li_myaccount']")).stream()
+//                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
         // click Sign UP
-        driver.findElements(By.xpath("//a[text()='  Sign Up']")).stream()    //.get(1).click();
-                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
+//        driver.findElements(By.xpath("//a[text()='  Sign Up']")).stream()    //.get(1).click();
+//                .filter(WebElement::isDisplayed).findFirst().ifPresent(WebElement::click);
         // entering informations
-        driver.findElement(By.name("firstname")).sendKeys("Andrzej");
-        driver.findElement(By.name("lastname")).sendKeys("Testowany");
-        driver.findElement(By.name("phone")).sendKeys("111222333");
-        driver.findElement(By.name("email")).sendKeys("Testowalny"+randomNumber+"@test.pl");
-        driver.findElement(By.name("password")).sendKeys("haslotestowe123");
-        driver.findElement(By.name("confirmpassword")).sendKeys("haslotestowe123");
+//        driver.findElement(By.name("firstname")).sendKeys("Andrzej");
+//        driver.findElement(By.name("lastname")).sendKeys("Testowany");
+//        driver.findElement(By.name("phone")).sendKeys("111222333");
+//        driver.findElement(By.name("email")).sendKeys("Testowalny"+randomNumber+"@test.pl");
+//        driver.findElement(By.name("password")).sendKeys("haslotestowe123");
+//        driver.findElement(By.name("confirmpassword")).sendKeys("haslotestowe123");
 //        driver.findElement(By.xpath("//*[@id=\"headersignupform\"]/div[9]/button")).click();
-        driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
+//        driver.findElement(By.xpath("//button[text()=' Sign Up']")).click();
 
         WebElement heading = driver.findElement(By.xpath("//*[@id=\"body-section\"]/div[1]/div/div/div[1]/h3"));
         Assert.assertTrue(heading.getText().contains(lastName));
