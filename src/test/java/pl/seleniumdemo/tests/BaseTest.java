@@ -19,7 +19,7 @@ public class BaseTest {
 //        WebDriverManager.chromedriver().setup();
 //        driver = new ChromeDriver();      "chrome"
         driver = DriverFactory.getDriver();
-//        driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
         driver.get("http://kurs-selenium.pl/demo/");
         driver.manage().window().maximize();
     }

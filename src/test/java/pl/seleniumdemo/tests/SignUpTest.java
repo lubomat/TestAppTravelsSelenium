@@ -55,12 +55,13 @@ public class SignUpTest extends BaseTest {
         signUpPage.setEmail(email);
         signUpPage.setPassword("testowehaslo321");
         signUpPage.setConfirmPassword("testowehaslo321");
+        signUpPage.signUp();
 
 
         LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
 
         Assert.assertTrue(loggedUserPage.getHeadingText().contains("Testowalny"));
-        Assert.assertEquals(loggedUserPage.getHeadingText(), "Hi, Andrzej Testowany");
+        Assert.assertEquals(loggedUserPage.getHeadingText(), "Hi, Marek Testowalny");
 
         System.out.println(loggedUserPage.getHeadingText());
         System.out.println("W tym tescie został użyty adres email: " + "Testowalny" + randomNumber + "@test.pl");
