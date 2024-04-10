@@ -1,10 +1,12 @@
 package pl.seleniumdemo.utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.model.Media;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+
+import java.io.File;
+import java.io.IOException;
 
 public class SeleniumHelper {
 
@@ -23,4 +25,21 @@ public class SeleniumHelper {
 //        WebDriverWait wait = new WebDriverWait(driver, 10);
 //        wait.until(browser -> browser.findElements(locator).size()>0 );
 //    }
+
+             //   MediaEntityModelProvider
+    public static Media getScreenshot(WebDriver driver) throws IOException {
+        String path = takeScreenshot(driver);
+        return MediaEntityBuilder.createScreenCaptureFromPath(path).build();
+
+    }
+
+    private static String takeScreenshot(WebDriver driver) throws IOException {
+        int randomNumber = (int) (Math.random()*1000);
+        TakesScreenshot screenshot = (TakesScreenshot) driver;
+        File file = screenshot.getScreenshotAs(OutputType.FILE);
+        String path = "src/test/resources/screenshots/screenshot" + randomNumber + ".png";
+        FileUtils.copyFile(file, new File(path));
+        return path;
+    }
+
 }

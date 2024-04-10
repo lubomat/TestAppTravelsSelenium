@@ -7,29 +7,30 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pl.seleniumdemo.pages.HotelSearchPage;
 import pl.seleniumdemo.pages.ResultsPage;
+import pl.seleniumdemo.utils.SeleniumHelper;
 
+import java.io.IOException;
 import java.util.List;
 
 public class HotelSearchTest extends BaseTest {
 
 
     @Test
-    public void searchHotelTest() {
+    public void searchHotelTest() throws IOException {
 
         ExtentTest test = extentReports.createTest("Search Hotel Test");
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.setCity("Dubai");
-        test.log(Status.PASS,"Setting city done");
+        test.log(Status.PASS,"Setting city done", SeleniumHelper.getScreenshot(driver));
         hotelSearchPage.setDates("27/04/2025", "30/04/2025");
-        test.log(Status.PASS,"Setting dates done");
+        test.log(Status.PASS,"Setting dates done",SeleniumHelper.getScreenshot(driver));
 
         hotelSearchPage.setTravelers(1, 2);
-        test.log(Status.PASS,"Setting travelers done");
+        test.log(Status.PASS,"Setting travelers done",SeleniumHelper.getScreenshot(driver));
 
         hotelSearchPage.performSearch();
-        test.log(Status.PASS,"Performing Search done");
-        test.log(Status.PASS,"Screenshot", MediaEntityBuilder.createScreenCaptureFromPath(
-                "src/test/resources/screenshots/screenshot.png").build());
+        test.log(Status.PASS,"Performing Search done", SeleniumHelper.getScreenshot(driver));
+        test.log(Status.PASS,"Screenshot", SeleniumHelper.getScreenshot(driver));
 
 
         ResultsPage resultsPage = new ResultsPage(driver);
@@ -41,7 +42,7 @@ public class HotelSearchTest extends BaseTest {
         Assert.assertEquals(hotelNames.get(1), "Oasis Beach Tower");
         Assert.assertEquals(hotelNames.get(2), "Rose Rayhaan Rotana");
         Assert.assertEquals(hotelNames.get(3), "Hyatt Regency Perth");
-        test.log(Status.PASS,"Assertions passed");
+        test.log(Status.PASS,"Assertions passed", SeleniumHelper.getScreenshot(driver));
 
 
 
@@ -85,17 +86,22 @@ public class HotelSearchTest extends BaseTest {
     }
 
     @Test
-    public void searchHotelWithoutCityTest() {
+    public void searchHotelWithoutCityTest() throws IOException {
 
+        ExtentTest test = extentReports.createTest("Search Hotel Test Without City");
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.setDates("14/09/2025", "22/09/2025");
+        test.log(Status.PASS,"Setting dates done", SeleniumHelper.getScreenshot(driver));
         hotelSearchPage.setTravelers(0, 1);
+        test.log(Status.PASS,"Setting travelers done", SeleniumHelper.getScreenshot(driver));
         hotelSearchPage.performSearch();
+        test.log(Status.PASS,"Performing search done", SeleniumHelper.getScreenshot(driver));
 
         ResultsPage resultsPage = new ResultsPage(driver);
 
         Assert.assertTrue(resultsPage.resultHeading.isDisplayed());
         Assert.assertEquals(resultsPage.getHeadingText(), "No Results Found");
+        test.log(Status.PASS,"Assertion done", SeleniumHelper.getScreenshot(driver));
 
         // set checkin
 //        driver.findElement(By.name("checkin")).sendKeys("14/09/2025");
