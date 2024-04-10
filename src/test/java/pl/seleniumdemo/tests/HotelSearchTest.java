@@ -1,5 +1,8 @@
 package pl.seleniumdemo.tests;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pl.seleniumdemo.pages.HotelSearchPage;
@@ -13,11 +16,21 @@ public class HotelSearchTest extends BaseTest {
     @Test
     public void searchHotelTest() {
 
+        ExtentTest test = extentReports.createTest("Search Hotel Test");
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.setCity("Dubai");
+        test.log(Status.PASS,"Setting city done");
         hotelSearchPage.setDates("27/04/2025", "30/04/2025");
+        test.log(Status.PASS,"Setting dates done");
+
         hotelSearchPage.setTravelers(1, 2);
+        test.log(Status.PASS,"Setting travelers done");
+
         hotelSearchPage.performSearch();
+        test.log(Status.PASS,"Performing Search done");
+        test.log(Status.PASS,"Screenshot", MediaEntityBuilder.createScreenCaptureFromPath(
+                "src/test/resources/screenshots/screenshot.png").build());
+
 
         ResultsPage resultsPage = new ResultsPage(driver);
 
@@ -28,6 +41,8 @@ public class HotelSearchTest extends BaseTest {
         Assert.assertEquals(hotelNames.get(1), "Oasis Beach Tower");
         Assert.assertEquals(hotelNames.get(2), "Rose Rayhaan Rotana");
         Assert.assertEquals(hotelNames.get(3), "Hyatt Regency Perth");
+        test.log(Status.PASS,"Assertions passed");
+
 
 
         // set City
