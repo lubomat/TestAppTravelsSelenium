@@ -55,13 +55,13 @@ public class HotelSearchPage {
     }
 
     public void setCity(String cityName) {
-        logger.info("Setting city " + cityName);
+        logger.info("setting city " + cityName);
         searchHotelSpan.click();
         searchHotelInput.sendKeys(cityName);
         String xpath = String.format("//span[@class='select2-match' and text()='%s']", cityName);
         SeleniumHelper.waitForElementToExist(driver,By.xpath(xpath));  //EXPLICIT WAIT
         driver.findElement(By.xpath(xpath)).click();
-        logger.info("Setting city done");
+        logger.info("setting city done");
     }
 
     public void setDates(String checkin, String checkout) {

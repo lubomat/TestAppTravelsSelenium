@@ -36,7 +36,7 @@ public class BaseTest {
 
     @BeforeMethod
     public void setup() throws IOException {
-//        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().setup();
 //        driver = new ChromeDriver();      "chrome"
         driver = DriverFactory.getDriver();
         driver.manage().timeouts().implicitlyWait(2L, TimeUnit.SECONDS);
